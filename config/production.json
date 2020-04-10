@@ -1,0 +1,6 @@
+{
+  "port": 8080,
+  "jwtSecret": "Abracadabra",
+  "mongoUri": "mongodb+srv://nipo:myyyy124@cluster0-hsbp1.azure.mongodb.net/app?retryWrites=true&w=majority",
+  "baseUrl": "http://localhost:8080"
+}
