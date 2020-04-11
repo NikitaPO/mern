@@ -1,6 +1,6 @@
 const express = require("express");
 const config = require("config");
-const path = require('path')
+const path = require("path");
 const mongoose = require("mongoose");
 
 const app = express();
@@ -11,25 +11,27 @@ app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/link", require("./routes/link.routes"));
 app.use("/t", require("./routes/redirect.routes"));
 
-if (process.env.NODE_ENV === 'production') {
-  app.use('/', express.static(path.join(__dirname, "client", 'build')))
+if (process.env.NODE_ENV === "production") {
+  app.use("/", express.static(path.join(__dirname, "client", "build")));
 
-  app.get('*', (res, req) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-  })
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
 }
 
 const PORT = config.get("port") || 8080;
 
 async function start() {
   try {
-    await mongoose.connect(config.get("mongoUri"), {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true
-    }).catch(() => console.log("Can't connect to MongoDB"));
+    await mongoose
+      .connect(config.get("mongoUri"), {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+      })
+      .catch(() => console.log("Can't connect to MongoDB"));
 
-    app.listen(8080, () =>
+    app.listen(PORT, () =>
       console.log(`App has been started on port ${PORT}...`)
     );
   } catch (e) {
